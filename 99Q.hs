@@ -1,4 +1,6 @@
 data NestedList a = Elem a | List [NestedList a]
+data Encoded a = Multiple Int a | Single a
+    deriving (Show)
 
 myLast :: [a] -> a
 myLast [] = error "Empy list"
@@ -55,3 +57,12 @@ pack (x:xs) = (x:first): pack rest
 encode :: Eq a => [a] -> [(Int, a)]
 encode [] = []
 encode xs = [(length ps, head ps) | ps <- pack xs]
+
+encodeModified :: Eq a => [a] -> [Encoded a]
+encodeModified xs = [if length ps == 1 then Single (head ps) else Multiple (length ps) (head ps) | ps <- pack xs]
+
+decodeModified :: [Encoded a] -> [a]
+decodeModified xs = concat [decodeHelper ps | ps <- xs]
+    where 
+        decodeHelper (Multiple n e) = replicate n e
+        decodeHelper (Single e) = [e]
