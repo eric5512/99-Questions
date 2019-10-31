@@ -54,7 +54,4 @@ pack (x:xs) = (x:first): pack rest
 
 encode :: Eq a => [a] -> [(Int, a)]
 encode [] = []
-encode (x:[]) = [(1, x)]
-encode (x:xs) = [(length p, head p)] ++ encode xs
-    where
-        (p:ps) = pack xs
+encode xs = [(length ps, head ps) | ps <- pack xs]
