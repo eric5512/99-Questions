@@ -78,4 +78,4 @@ repli (x:xs) n = replicate n x ++ repli xs n
 dropEvery :: [a] -> Int -> [a]
 dropEvery xs n = [p | (i,p) <- dropEveryAux xs, i `mod` n /= 0]
     where
-        dropEveryAux xs = zip [1..(length xs)] xs
+        dropEveryAux xs = zip [1..] xs
