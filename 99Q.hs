@@ -66,3 +66,16 @@ decodeModified xs = concat [decodeHelper ps | ps <- xs]
     where 
         decodeHelper (Multiple n e) = replicate n e
         decodeHelper (Single e) = [e]
+
+dupli :: [a] -> [a]
+dupli [] = []
+dupli (x:xs) = x : x : dupli xs
+
+repli :: [a] -> Int -> [a]
+repli [] _ = []
+repli (x:xs) n = replicate n x ++ repli xs n
+
+dropEvery :: [a] -> Int -> [a]
+dropEvery xs n = [p | (i,p) <- dropEveryAux xs, i `mod` n /= 0]
+    where
+        dropEveryAux xs = zip [1..(length xs)] xs
