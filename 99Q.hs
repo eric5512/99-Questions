@@ -85,3 +85,16 @@ split [] _ = ([],[])
 split (x:xs) n
     | n > 0 = ((x : (fst (split xs (n - 1))), snd (split xs (n - 1) ) ) )
     | otherwise = (fst (split xs (n - 1)), (x : (snd (split xs (n - 1) ) ) ) ) 
+
+slice :: [a] -> Int -> Int -> [a]
+slice [] _ _ = []
+slice (x:xs) 0 0 = [x]
+slice (x:xs) 0 n2 = [x] ++ slice xs 0 (n2 - 1)
+slice (x:xs) n1 n2 = slice xs (n1 - 1) (n2 - 1)
+
+rotate :: [a] -> Int -> [a]
+rotate [] _ = []
+rotate xs 0 = xs
+rotate (x:xs) n
+    | n > 0 = rotate (xs++[x]) (n - 1)
+    | otherwise = [head xs] ++ rotate ([x] ++ (tail xs)) (n + 1)
