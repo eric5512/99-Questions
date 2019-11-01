@@ -98,3 +98,6 @@ rotate xs 0 = xs
 rotate (x:xs) n
     | n > 0 = rotate (xs++[x]) (n - 1)
     | otherwise = rotate (x:xs) (length (x:xs) + n)
+
+removeAt :: Int -> [a] -> (a,[a])
+removeAt n xs = (xs !! (n - 1), [y | (i, y) <- zip [1..] xs, i /= n])
