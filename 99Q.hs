@@ -97,4 +97,4 @@ rotate [] _ = []
 rotate xs 0 = xs
 rotate (x:xs) n
     | n > 0 = rotate (xs++[x]) (n - 1)
-    | otherwise = [head xs] ++ rotate ([x] ++ (tail xs)) (n + 1)
+    | otherwise = rotate (x:xs) (length (x:xs) + n)
