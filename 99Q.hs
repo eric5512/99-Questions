@@ -79,3 +79,9 @@ dropEvery :: [a] -> Int -> [a]
 dropEvery xs n = [p | (i,p) <- dropEveryAux xs, i `mod` n /= 0]
     where
         dropEveryAux xs = zip [1..] xs
+
+split :: [a] -> Int -> ([a], [a])
+split [] _ = ([],[])
+split (x:xs) n
+    | n > 0 = ((x : (fst (split xs (n - 1))), snd (split xs (n - 1) ) ) )
+    | otherwise = (fst (split xs (n - 1)), (x : (snd (split xs (n - 1) ) ) ) ) 
