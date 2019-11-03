@@ -101,3 +101,14 @@ rotate (x:xs) n
 
 removeAt :: Int -> [a] -> (a,[a])
 removeAt n xs = (xs !! (n - 1), [y | (i, y) <- zip [1..] xs, i /= n])
+
+insertAt :: a -> [a] -> Int -> [a]
+insertAt _ xs 0 = xs
+insertAt y xs 1 = [y] ++ (insertAt y xs 0) 
+insertAt y (x:xs) n = [x] ++ (insertAt y xs (n-1))
+
+range :: Int -> Int -> [Int]
+range n1 n2
+    | n1 < n2 = [n1] ++ (range (n1+1) n2)
+    | otherwise = [n1]
+
