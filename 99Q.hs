@@ -1,3 +1,5 @@
+import Data.List (nub)
+import System.Random (randomRs, getStdGen)
 data NestedList a = Elem a | List [NestedList a]
 data Encoded a = Multiple Int a | Single a
     deriving (Show)
@@ -111,4 +113,19 @@ range :: Int -> Int -> [Int]
 range n1 n2
     | n1 < n2 = [n1] ++ (range (n1+1) n2)
     | otherwise = [n1]
+
+rndSelect :: [a] -> Int -> IO [a]
+rndSelect xs n = do 
+    gen <- getStdGen
+    return $ take n [xs !! x | x <- randomRs (0, length xs - 1) gen]
+
+diffSelect :: Int -> Int -> IO [Int]
+diffSelect n m = do
+    gen <- getStdGen
+    return $ take n [x | x <- randomRs (1, m) gen]
+
+rndPermu :: [a] -> IO [a]
+rndPermu xs = do
+    gen <- getStdGen
+    return $ [xs !! x | x <- nub $ take (length xs * 2) (randomRs (0, length xs -1) gen)]
 
